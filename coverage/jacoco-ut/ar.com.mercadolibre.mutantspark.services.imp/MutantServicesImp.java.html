@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MutantServicesImp.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MutantSpark</a> &gt; <a href="index.source.html" class="el_package">ar.com.mercadolibre.mutantspark.services.imp</a> &gt; <span class="el_source">MutantServicesImp.java</span></div><h1>MutantServicesImp.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package ar.com.mercadolibre.mutantspark.services.imp;
+
+import ar.com.mercadolibre.mutantspark.detector.DetectorDna;
+import ar.com.mercadolibre.mutantspark.model.DnaPOJO;
+import ar.com.mercadolibre.mutantspark.services.DBServices;
+import ar.com.mercadolibre.mutantspark.services.MutantServices;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ *
+ * @author rcarballo
+ */
+public class MutantServicesImp implements MutantServices{
+<span class="nc" id="L19">    private static final Logger logger = LoggerFactory.getLogger(MutantServicesImp.class);</span>
+    
+    private DBServices db;
+    
+<span class="nc" id="L23">    public MutantServicesImp(){</span>
+<span class="nc" id="L24">        this.db = new DBServicesImp();</span>
+<span class="nc" id="L25">    }</span>
+
+<span class="nc" id="L27">    public MutantServicesImp(DBServices dbService) {</span>
+<span class="nc" id="L28">        this.db = dbService;</span>
+<span class="nc" id="L29">    }</span>
+    
+    @Override
+    public boolean isMutant(String[] dna) throws Exception{
+<span class="nc" id="L33">        boolean isMutant = false;</span>
+        
+<span class="nc" id="L35">        logger.info(&quot;Verificando DNA&quot;);</span>
+        
+        try{            
+<span class="nc" id="L38">            DetectorDna detectorDna = new DetectorDna();</span>
+<span class="nc" id="L39">            isMutant = detectorDna.isMutant(dna);</span>
+            
+<span class="nc" id="L41">            logger.info(&quot;Instanciando DB para almacenar el ADN&quot;);            </span>
+<span class="nc" id="L42">            db.registrarAdn(new DnaPOJO(dna, isMutant));</span>
+<span class="nc" id="L43">            logger.info(&quot;DNA registrado OK&quot;);                      </span>
+<span class="nc" id="L44">        }catch(Exception e){</span>
+<span class="nc" id="L45">            logger.info(&quot;Error en el servicio mutant mientras se verificaba si es mutante&quot;);</span>
+<span class="nc" id="L46">            e.printStackTrace();</span>
+<span class="nc" id="L47">            logger.error(&quot;Error en el servicio mutant mientras se verificaba si es mutante&quot;, e.getMessage());</span>
+<span class="nc" id="L48">        }      </span>
+<span class="nc" id="L49">        return isMutant;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

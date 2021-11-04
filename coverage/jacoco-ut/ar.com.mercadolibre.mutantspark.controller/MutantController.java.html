@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MutantController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MutantSpark</a> &gt; <a href="index.source.html" class="el_package">ar.com.mercadolibre.mutantspark.controller</a> &gt; <span class="el_source">MutantController.java</span></div><h1>MutantController.java</h1><pre class="source lang-java linenums">/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package ar.com.mercadolibre.mutantspark.controller;
+
+import ar.com.mercadolibre.mutantspark.exceptions.CustomExceptionHandler;
+import ar.com.mercadolibre.mutantspark.exceptions.MutantServicesException;
+import ar.com.mercadolibre.mutantspark.functions.RandomMatrix;
+import ar.com.mercadolibre.mutantspark.model.DnaPOJO;
+import ar.com.mercadolibre.mutantspark.services.imp.MutantServicesImp;
+import com.google.gson.Gson;
+import spark.Request;
+import spark.Response;
+import spark.Spark;
+import static spark.Spark.post;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ *
+ * @author rcarballo
+ */
+
+public class MutantController {
+<span class="nc" id="L26">    private static final Logger logger = LoggerFactory.getLogger(MutantController.class);</span>
+    
+<span class="nc" id="L28">    public MutantController(MutantServicesImp mutantService) { </span>
+        
+<span class="nc" id="L30">        post(&quot;/mutant/&quot;, (Request req, Response res) -&gt; {</span>
+<span class="nc" id="L31">            logger.info(&quot;Recibio request en el path /mutants/&quot;);</span>
+<span class="nc" id="L32">            boolean isMutant = false;            </span>
+            
+<span class="nc" id="L34">            String body = req.body();</span>
+<span class="nc" id="L35">            logger.info(&quot;BODY: &quot; + body);            </span>
+            
+            // Convertimos de JSON a objeto de la clase DnaPOJO
+<span class="nc" id="L38">            DnaPOJO dnaPOJO = json2DnaPOJO(body);            </span>
+            
+            //el servicio mutant verifica si el ADN es mutante.
+<span class="nc" id="L41">            isMutant = mutantService.isMutant(dnaPOJO.getDna());            </span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">            logger.info(&quot;ADN Procesado: &quot; + (isMutant? &quot;Mutante&quot;:&quot;Humano&quot;));</span>
+            
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            if(isMutant){</span>
+<span class="nc" id="L45">                res.status(200);</span>
+<span class="nc" id="L46">                return &quot;OK&quot;;</span>
+            }else{
+<span class="nc" id="L48">                res.status(403);</span>
+<span class="nc" id="L49">                return &quot;Forbbiden&quot;;                </span>
+            }            
+        });
+        
+<span class="nc" id="L53">        Spark.exception(MutantServicesException.class, new CustomExceptionHandler(500, &quot;server.error.mutant.service&quot;));</span>
+<span class="nc" id="L54">    } </span>
+    
+    public DnaPOJO getTestMatrix(int dimension) {
+<span class="nc" id="L57">        DnaPOJO dnaPOJO = new DnaPOJO();            </span>
+
+<span class="nc" id="L59">        dnaPOJO.setDna(RandomMatrix.ArrayRandomMatrix(dimension));</span>
+<span class="nc" id="L60">        return dnaPOJO;</span>
+    }
+    
+    /**
+     * Convierte el objeto JSON en un objeto tipo DnaPOJO.
+     * @param body body de la request con los datos enviados.
+     * @return Objeto de tipo DnaPOJO.
+     */
+    private static DnaPOJO json2DnaPOJO(String body) {
+<span class="nc" id="L69">        DnaPOJO dna = null;</span>
+        try {
+<span class="nc" id="L71">            dna = new Gson().fromJson(body, DnaPOJO.class);</span>
+<span class="nc" id="L72">        } catch (Exception e) {</span>
+<span class="nc" id="L73">            e.printStackTrace();</span>
+<span class="nc" id="L74">        }</span>
+<span class="nc" id="L75">        return dna;</span>
+    }
+    
+    /*
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path(&quot;TestMutant&quot;)
+    public Response TestMutantApi(@QueryParam(&quot;dimension&quot;) int dimension) {
+        DnaPOJO dna = new DnaPOJO();
+
+        dna.setDna(RandomMatrix.ArrayRandomMatrix(dimension));
+
+        DetectorDna detectorDna = new DetectorDna();
+        if (detectorDna.isMutant(dna.getDna())) {
+                return Response.ok().build();                
+        } else {
+                return Response.status(403).type(&quot;text/plain&quot;).entity(&quot;Forbidden&quot;).build();
+        }
+    }
+    
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path(&quot;ArrayTest&quot;)
+    public DnaPOJO getTestMatrix(@QueryParam(&quot;dimension&quot;) int dimension) {
+        DnaPOJO dnaPOJO = new DnaPOJO();            
+
+        dnaPOJO.setDna(RandomMatrix.ArrayRandomMatrix(dimension));
+        return dnaPOJO;
+    }*/
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

@@ -1,0 +1,16 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+MutantSpark,ar.com.mercadolibre.mutantspark.controller,MutantController,96,0,4,0,26,0,7,0,5,0
+MutantSpark,ar.com.mercadolibre.mutantspark.controller,StatsController,61,0,0,0,16,0,3,0,3,0
+MutantSpark,ar.com.mercadolibre.mutantspark.functions,JsonTransformer,13,0,0,0,3,0,2,0,2,0
+MutantSpark,ar.com.mercadolibre.mutantspark.functions,RandomMatrix,44,0,4,0,9,0,4,0,2,0
+MutantSpark,ar.com.mercadolibre.mutantspark.services.imp,MutantServicesImp,59,0,0,0,20,0,4,0,4,0
+MutantSpark,ar.com.mercadolibre.mutantspark.services.imp,DBServicesImp,68,0,0,0,18,0,5,0,5,0
+MutantSpark,ar.com.mercadolibre.mutantspark.services.imp,StatsServicesImp,109,0,2,0,26,0,5,0,4,0
+MutantSpark,ar.com.mercadolibre.mutantspark.response,ErrorResponse,18,0,0,0,7,0,3,0,3,0
+MutantSpark,ar.com.mercadolibre.mutantspark.model,StatsPOJO,55,0,0,0,15,0,8,0,8,0
+MutantSpark,ar.com.mercadolibre.mutantspark.model,DnaPOJO,64,0,2,0,18,0,8,0,7,0
+MutantSpark,ar.com.mercadolibre.mutantspark,MutantApp,44,0,0,0,10,0,3,0,3,0
+MutantSpark,ar.com.mercadolibre.mutantspark.exceptions,StatsServicesException,4,0,0,0,2,0,1,0,1,0
+MutantSpark,ar.com.mercadolibre.mutantspark.exceptions,MutantServicesException,10,0,0,0,4,0,2,0,2,0
+MutantSpark,ar.com.mercadolibre.mutantspark.exceptions,CustomExceptionHandler,18,0,0,0,7,0,2,0,2,0
+MutantSpark,ar.com.mercadolibre.mutantspark.detector,DetectorDna,359,0,68,0,59,0,42,0,8,0
