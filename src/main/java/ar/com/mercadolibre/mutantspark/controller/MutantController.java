@@ -76,9 +76,7 @@ public class MutantController {
     }
     
     /*
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("TestMutant")
+    @POST(/TestMutant/)
     public Response TestMutantApi(@QueryParam("dimension") int dimension) {
         DnaPOJO dna = new DnaPOJO();
 
@@ -92,10 +90,7 @@ public class MutantController {
         }
     }
     
-    @GET
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("ArrayTest")
+    GET("ArrayTest")
     public DnaPOJO getTestMatrix(@QueryParam("dimension") int dimension) {
         DnaPOJO dnaPOJO = new DnaPOJO();            
 
