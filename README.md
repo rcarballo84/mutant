@@ -1,6 +1,6 @@
 # Examen de MercadoLibre
 
-El objetivo del problema es poder detectar a traves de una API REST, si un ADN es Mutante o Humano_Acá va un párrafo que describa lo que es el proyecto.
+El objetivo del problema es poder detectar a traves de una API REST, si un ADN es Mutante o Humano.
 
 ## Tecnologias utilizadas 🛠️
 
