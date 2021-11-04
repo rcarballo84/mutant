@@ -92,6 +92,6 @@ Todavia no se implemento, pero se realizaran con Jacoco
 
 ## Autor ✒️
 
-* **Rodolfo Carballo** - *Trabajo Inicial* - [rcarballo84](https://github.com/rcarballo84/mutant)
+* **Rodolfo Carballo** - *Trabajo Inicial* - [rcarballo84](https://github.com/rcarballo84/)
 
 
