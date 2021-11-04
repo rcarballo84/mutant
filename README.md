@@ -95,6 +95,3 @@ Todavia no se implemento, pero se realizaran con Jacoco
 * **Rodolfo Carballo** - *Trabajo Inicial* - [rcarballo84](https://github.com/rcarballo84/mutant)
 
 
-## Expresiones de Gratitud 🎁
-
-* Comenta a otros sobre este proyecto 📢
